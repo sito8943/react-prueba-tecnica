@@ -1,0 +1,15 @@
+.home {
+  @apply flex flex-col gap-4 max-w-[80%] m-auto pt-5 mb-5;
+}
+
+@media (max-width: 870px) {
+  li {
+    @apply w-full;
+  }
+}
+
+@media (max-width: 650px) {
+  .home {
+    @apply max-w-[95%];
+  }
+}

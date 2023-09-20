@@ -1,0 +1,31 @@
+.dot {
+  min-width: 16px;
+  min-height: 16px;
+  @apply w-4 h-4  rounded-full;
+}
+
+.user {
+  @apply relative flex border-2 border-primary rounded-sm transition w-[350px] p-5;
+}
+
+.female {
+  background-color: rgba(255, 192, 203, 0.6);
+}
+
+.female:hover {
+  background-color: rgb(255, 192, 203);
+}
+
+.male {
+  background-color: rgba(30, 143, 255, 0.6);
+}
+
+.male:hover {
+  background-color: rgb(30, 143, 255);
+}
+
+@media (max-width: 870px) {
+  .user {
+    @apply w-full;
+  }
+}

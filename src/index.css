@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+textarea {
+  resize: none;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+input:focus-visible,
+input {
+  outline: none !important;
+}
+
+a,
+th,
+td,
+p,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  @apply dark:text-white text-dark-background2;
+}
+
+h1 {
+  @apply text-6xl font-extrabold;
+}
+
+@media (max-width: 650px) {
+  h1 {
+    @apply text-4xl;
+  }
+}
+
+h2 {
+  @apply text-4xl font-extrabold;
+}
+
+h3 {
+  @apply text-2xl font-extrabold;
+}
+
+.icon-button {
+  @apply w-10 h-10 text-primary rounded-full flex items-center justify-center text-xl transition hover:bg-pdark-hover;
+}
+
+.submit {
+  @apply border-2 transition font-semibold;
+}
+.secondary.submit {
+  @apply border-secondary bg-secondary  hover:bg-sdark hover:border-sdark text-dark-background2;
+}
+.primary.submit {
+  @apply border-primary bg-primary  hover:bg-pdark hover:border-pdark text-white;
+}
+
+.outlined {
+  @apply border-2 border-primary transition hover:bg-primary dark:text-white;
+}
+
+.input-control {
+  @apply relative w-full flex flex-col items-start justify-start gap-2;
+}
+
+.input,
+.button {
+  @apply px-5 py-2 rounded-3xl cursor-default;
+}
