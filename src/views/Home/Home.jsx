@@ -65,45 +65,50 @@ function Home() {
     // TODO
   }, [users]);
 
-  const onDeleteUser = useCallback(
-    async (id) => {
-      setLoading(true);
-      try {
-        await removeUser(id);
-        setCountOfDeletes((countOfDeletes) => countOfDeletes + 1);
-        setNotificationState({
-          type: "set",
-          ntype: "success",
-          message: "Eliminado correctamente",
-        });
-        const newUsers = [...users];
-        newUsers.splice(
-          newUsers.findIndex((user) => user.id === id),
-          1
-        );
-        setUsers(newUsers);
-      } catch (err) {
-        console.error(err);
-        setNotificationState({
-          type: "set",
-          ntype: "error",
-          message: String(err),
-        });
-      }
-      setLoading(false);
-    },
-    [users]
-  );
+  const [idToDelete, setIdToDelete] = useState(0);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  const onDeleteUser = useCallback(async () => {
+    setLoading(true);
+    setShowConfirmationModal(false);
+    try {
+      await removeUser(idToDelete);
+      setCountOfDeletes((countOfDeletes) => countOfDeletes + 1);
+      setNotificationState({
+        type: "set",
+        ntype: "success",
+        message: "Eliminado correctamente",
+      });
+      const newUsers = [...users];
+      newUsers.splice(
+        newUsers.findIndex((user) => user.id === idToDelete),
+        1
+      );
+      setUsers(newUsers);
+    } catch (err) {
+      console.error(err);
+      setNotificationState({
+        type: "set",
+        ntype: "error",
+        message: String(err),
+      });
+    }
+    setLoading(false);
+  }, [users, idToDelete]);
+
+  const activateConfirmation = useCallback((id) => {
+    setIdToDelete(id);
+    setShowConfirmationModal(true);
+  }, []);
 
   const printData = useMemo(() => {
     return users.map((user) => (
       <li key={user.id}>
-        <User {...user} onEdit={onEditUser} onDelete={onDeleteUser} />
+        <User {...user} onEdit={onEditUser} onDelete={activateConfirmation} />
       </li>
     ));
   }, [users, onEditUser, onDeleteUser]);
 
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
 
   const onAddUser = async (data) => {
@@ -132,7 +137,7 @@ function Home() {
   return (
     <main className="relative">
       <ConfirmationModal
-        onAccept={() => {}}
+        onAccept={onDeleteUser}
         visible={showConfirmationModal}
         onClose={() => setShowConfirmationModal(false)}
       />
